@@ -1,4 +1,16 @@
 entries:
+  - title: engineering
+    post_list:
+      category: engineering
+
+  - title: notes
+    post_list:
+      category: notes
+
+  - title: personal
+    post_list:
+      category: personal
+
   - title: all posts
     post_list:
       limit: 10

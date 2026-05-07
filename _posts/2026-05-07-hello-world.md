@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Hello World"
+category: notes
 ---
 
 Your first doc is live. Here's what you can use:
