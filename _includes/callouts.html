@@ -1,0 +1,17 @@
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var map = { "note": "callout-note", "warning": "callout-warning", "tip": "callout-tip", "danger": "callout-danger", "info": "callout-info" };
+  document.querySelectorAll("blockquote").forEach(function(bq) {
+    var strong = bq.querySelector("p > strong:first-child");
+    if (!strong) return;
+    var key = strong.textContent.replace(/:$/, "").toLowerCase();
+    if (map[key]) {
+      bq.classList.add(map[key]);
+      bq.style.fontStyle = "normal";
+      bq.style.borderTop = "none";
+      bq.style.borderRight = "none";
+      bq.style.borderBottom = "none";
+    }
+  });
+});
+</script>

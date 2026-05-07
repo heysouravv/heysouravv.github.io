@@ -123,3 +123,44 @@ a {
     text-decoration: underline;
   }
 }
+
+// Callouts — use with: > **Note:** your text
+// or > **Warning:** your text, etc.
+blockquote {
+  &:has(strong:first-child) {
+    font-style: normal;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin: 1.5rem 0;
+  }
+}
+
+.callout-note {
+  background: #eff6ff;
+  border-left: 3px solid #3b82f6;
+  color: #1e3a5f;
+}
+
+.callout-warning {
+  background: #fffbeb;
+  border-left: 3px solid #f59e0b;
+  color: #78350f;
+}
+
+.callout-tip {
+  background: #f0fdf4;
+  border-left: 3px solid #22c55e;
+  color: #14532d;
+}
+
+.callout-danger {
+  background: #fef2f2;
+  border-left: 3px solid #ef4444;
+  color: #7f1d1d;
+}
+
+.callout-info {
+  background: #f5f3ff;
+  border-left: 3px solid #8b5cf6;
+  color: #3b0764;
+}
