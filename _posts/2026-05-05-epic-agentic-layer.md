@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Epic Clarity — Agentic AI Layer"
-categories: [engineering, backend]
+categories: [engineering, data]
 ---
 
 **Purpose:** Intelligence map of Epic Clarity's data topology for teams building an agentic AI layer on top of clinical EHR data. Covers all 12 domains, agent use cases, investment wedges, build sequence, and architecture decisions.
@@ -19,14 +19,14 @@ categories: [engineering, backend]
 | **AI Surface** | Not queryable directly | **Primary agent surface** | Secondary / faster reads |
 | **External data** | No | No | Yes (claims, registries) |
 
-> 💡 **The insight:** Clarity's complexity — 30,000 tables, ZC_ join dependencies, continuation tables — is the moat. Whoever builds schema intelligence on top of it first wins. The difficulty is the feature.
+>  **The insight:** Clarity's complexity — 30,000 tables, ZC_ join dependencies, continuation tables — is the moat. Whoever builds schema intelligence on top of it first wins. The difficulty is the feature.
 > 
 
 ---
 
 ## Critical Constraints — Read Before Building
 
-> ⚠️ **These are not edge cases. Every one surfaces in the first month.**
+>  **These are not edge cases. Every one surfaces in the first month.**
 > 
 - **T-1 freshness** — All data is one day old. Agents must surface data-as-of timestamps on every output. Never use Clarity for real-time operational decisions.
 - **Date format** — Dates stored as days since `12/31/1840` in `_REAL` columns (MUMPS heritage). All time-series logic requires conversion before use.
@@ -98,7 +98,7 @@ categories: [engineering, backend]
 | Observations | Vital signs, flowsheet rows, measurements |
 | History | Immunizations, social history, SDOH fields |
 
-> 💡 **`HNO_NOTE_TEXT` is the highest-value unstructured table in Clarity.** This is where the clinical story lives. Every NLP use case runs through here.
+>  **`HNO_NOTE_TEXT` is the highest-value unstructured table in Clarity.** This is where the clinical story lives. Every NLP use case runs through here.
 > 
 
 **Agent Use Cases**
@@ -307,7 +307,7 @@ categories: [engineering, backend]
 | Security | User roles, access levels, build configuration |
 | Metadata | Epic version, module activation, local customizations |
 
-> ⚠️ **Every domain query depends on this layer.** ZC_ joins are a precondition for human-readable output across all 11 other domains. Build the ZC_ resolver before writing any agent logic.
+>  **Every domain query depends on this layer.** ZC_ joins are a precondition for human-readable output across all 11 other domains. Build the ZC_ resolver before writing any agent logic.
 > 
 
 **Agent Use Cases**
@@ -357,7 +357,7 @@ Natural language query  ·  scheduled job  ·  API event  ·  alert threshold
                         Data-as-of timestamp on every output  ←  non-negotiable
 ```
 
-> ⚠️ **The domain router is the most consequential design decision.** Intent misclassification routes a billing query to clinical tables and produces numerically plausible wrong answers — which is worse than an obvious error. The router must be purpose-built, not a general-purpose prompt.
+>  **The domain router is the most consequential design decision.** Intent misclassification routes a billing query to clinical tables and produces numerically plausible wrong answers — which is worse than an obvious error. The router must be purpose-built, not a general-purpose prompt.
 > 
 
 ---
