@@ -8,6 +8,109 @@ layout: default
   {%-endif-%}
 </header>
 
-{%-include menu_item.html collection=site.data.menu.entries-%}
+{% comment %} Collect all parent categories and their subcategories dynamically {% endcomment %}
+
+{% assign parents = "" %}
+{% for post in site.posts %}
+  {% assign parent = post.categories | first %}
+  {% if parent %}
+    {% unless parents contains parent %}
+      {% if parents == "" %}
+        {% assign parents = parent %}
+      {% else %}
+        {% assign parents = parents | append: "|" | append: parent %}
+      {% endif %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+
+{% assign parent_list = parents | split: "|" | sort %}
+
+{% for parent in parent_list %}
+  <ul>
+    <li><strong>{{ parent }}</strong></li>
+
+    {% comment %} Find subcategories under this parent {% endcomment %}
+    {% assign subs = "" %}
+    {% for post in site.posts %}
+      {% if post.categories.first == parent and post.categories.size > 1 %}
+        {% assign sub = post.categories[1] %}
+        {% unless subs contains sub %}
+          {% if subs == "" %}
+            {% assign subs = sub %}
+          {% else %}
+            {% assign subs = subs | append: "|" | append: sub %}
+          {% endif %}
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign sub_list = subs | split: "|" | sort %}
+
+    {% if sub_list.size > 0 %}
+      {% comment %} Show posts grouped by subcategory {% endcomment %}
+      {% for sub in sub_list %}
+        <ul>
+          <li>{{ sub }}</li>
+          <ul>
+            {% for post in site.posts %}
+              {% if post.categories.first == parent and post.categories[1] == sub %}
+                <li>
+                  {{ post.date | date: site.theme_config.date_format }} <a href="{{ post.url | relative_url }}">{% if site.theme_config.lowercase_titles %}{{ post.title | downcase }}{% else %}{{ post.title }}{% endif %}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </ul>
+      {% endfor %}
+
+      {% comment %} Also show posts in this parent with NO subcategory {% endcomment %}
+      {% for post in site.posts %}
+        {% if post.categories.first == parent and post.categories.size == 1 %}
+          <ul>
+            <li>
+              {{ post.date | date: site.theme_config.date_format }} <a href="{{ post.url | relative_url }}">{% if site.theme_config.lowercase_titles %}{{ post.title | downcase }}{% else %}{{ post.title }}{% endif %}</a>
+            </li>
+          </ul>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {% comment %} No subcategories, just list posts {% endcomment %}
+      <ul>
+        {% for post in site.posts %}
+          {% if post.categories.first == parent %}
+            <li>
+              {{ post.date | date: site.theme_config.date_format }} <a href="{{ post.url | relative_url }}">{% if site.theme_config.lowercase_titles %}{{ post.title | downcase }}{% else %}{{ post.title }}{% endif %}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </ul>
+{% endfor %}
+
+{% comment %} Uncategorized posts {% endcomment %}
+{% assign has_uncategorized = false %}
+{% for post in site.posts %}
+  {% if post.categories.size == 0 %}
+    {% assign has_uncategorized = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if has_uncategorized %}
+  <ul>
+    <li><strong>uncategorized</strong></li>
+    <ul>
+      {% for post in site.posts %}
+        {% if post.categories.size == 0 %}
+          <li>
+            {{ post.date | date: site.theme_config.date_format }} <a href="{{ post.url | relative_url }}">{% if site.theme_config.lowercase_titles %}{{ post.title | downcase }}{% else %}{{ post.title }}{% endif %}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </ul>
+{% endif %}
 
 {{ content }}
