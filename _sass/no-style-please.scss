@@ -23,19 +23,28 @@ body[a="dark"] { @include dark-appearance; }
 // bg color is also needed in html in order to
 // block body's background propagation
 // see: https://stackoverflow.com/a/61265706
-html, body { background: white; }
+html, body { background: #ffffff; }
 
 html { height: 100%; scroll-behavior: smooth; }
 
 body {
-  color: black;
-  font-family: monospace;
-  font-size: 16px;
-  line-height: 1.4;
+  color: #1a1a1a;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  line-height: 1.6;
   margin: 0;
   min-height: 100%;
   overflow-wrap: break-word;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #000000;
+}
+
+h1 { font-size: 2rem; margin-top: 0; }
 
 .post-meta { text-align: right; }
 
@@ -47,7 +56,7 @@ p { margin: 1rem 0; }
 
 li { margin: 0.4rem 0; }
 
-*:target { background: yellow; }
+*:target { background: #fff3cd; }
 
 .w {
   max-width: 640px;
@@ -58,22 +67,27 @@ li { margin: 0.4rem 0; }
 hr {
   text-align: center;
   border: 0;
+  border-top: 1px solid #e0e0e0;
 
-  &:before { content: '/////' }
-  &:after { content: attr(data-content) '/////' }
+  &:before { content: '' }
+  &:after { content: '' }
 }
 
 table { width: 100%; }
 
 table, th, td {
-  border: thin solid black;
+  border: thin solid #e0e0e0;
   border-collapse: collapse;
   padding: 0.4rem;
 }
 
 code {
-  color: white;
-  background: black;
+  color: #1a1a1a;
+  background: #f5f5f5;
+  padding: 0.15em 0.35em;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
 }
 
 div.highlighter-rouge code {
@@ -85,8 +99,12 @@ div.highlighter-rouge code {
 
 blockquote {
   font-style: italic;
-  border: thin solid black;
-  padding: 1rem;
+  border-left: 3px solid #e0e0e0;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 0.5rem 1rem;
+  color: #555;
 
   p { margin: 0; }
 }
@@ -95,4 +113,13 @@ img {
   max-width: 100%;
   display: block;
   margin: 0 auto;
+}
+
+a {
+  color: #0066cc;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
