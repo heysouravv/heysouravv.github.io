@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Data Migration Strategies for Healthcare Systems"
-categories: [engineering, backend]
+categories: [engineering, data]
 ---
 ## Overview
 
