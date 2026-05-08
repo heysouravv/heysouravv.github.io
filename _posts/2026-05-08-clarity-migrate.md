@@ -3,9 +3,6 @@ layout: post
 title: "Clarity Migrate"
 categories: [engineering, data]
 ---
-
-# Clarity Migrate
-
 ## The Problem We're Solving
 
 Every year, hundreds of health systems in the United States switch their electronic health record system to Epic. Some are moving from Cerner. Some from Meditech. Some from Allscripts. Some are consolidating multiple Epic instances into one.
